@@ -68,7 +68,7 @@ data = oab.load_oab_file(filename, progress_bar=False)
 
 # delimiter is a str, normally for a single character
 # users and lists will be list instances
-users, lists = oab.oab2csv(data, parameters["delimiter"])
+users, lists = oab.oab2csv(data, delimiter)
 
 # basename is a str. For example, "address_book"
 oab.oab2excel(data, basename)
@@ -78,6 +78,7 @@ oab.oab2excel(data, basename)
 json_data = oab.oab2json(data, compact=False, indent=2)
 
 # width is an int
+# users and lists will be prettytable instances
 users, lists = oab2table(data, width=173)
 ```
 
