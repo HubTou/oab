@@ -285,7 +285,7 @@ def _read_OAB_V4_REC(file, atts_count, attributes):
 def load_oab_file(path_name, progress_bar=False):
     """ Returns a dictionary with the OAB file contents """
     data = {"path_name": path_name}
-    data["name"] = re.sub(f".*{os.sep}", "", path_name)
+    data["name"] = os.path.basename(path_name)
 
     # Determining file type
     data["type"] = _get_file_type(data["name"])

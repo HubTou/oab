@@ -8,6 +8,8 @@ Feel free to [submit your own ideas!](https://github.com/HubTou/oab/discussions)
 
 ## Possible evolutions
 * Export in XML format
+* Load file from default location
+  * C:\Users\{current user}\AppData\Local\Microsoft\Outlook\Offline Address Books\{uuid}\udetails.oab
 
 ## Unprobable evolutions
 * Support of:

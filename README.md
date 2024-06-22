@@ -1,7 +1,7 @@
 [![PyPI package](https://repology.org/badge/version-for-repo/pypi/python:oab.svg)](https://repology.org/project/python:oab/versions)
 [![Servier Inspired](https://raw.githubusercontent.com/servierhub/.github/main/badges/inspired.svg)](https://github.com/ServierHub/)
 
-# OAB(1)
+# OAB
 
 ## NAME
 oab - Microsoft Exchange/Outlook Offline Address Book (.oab files) decoder
@@ -50,7 +50,7 @@ The style used for JSON files can be changed to compact mode with the *--compact
 or with an indentation different from 4 spaces with the argument of the *--indent|-i* option.
 
 The terminal width used for the pretty table files can be changed from the default 80 columns to the argument of the *--width|-w* option.
-You should especially use this option When redirecting the program output to a file...
+You should especially use this option when redirecting the program output to a file...
 
 Last and least, you can disable the progress bar with the *--bar|-b* option.
 
@@ -61,25 +61,25 @@ the others for converting its result into another format:
 ```Python
 import oab
 
-# data is a dict
-# filename is a str. For example, "udetails.oab"
-# progress_bar is a bool
 data = oab.load_oab_file(filename, progress_bar=False)
+# filename is a str. For example, "udetails.oab"
+# the optional progress_bar is a bool
+# data will be a dict
 
+users, lists = oab.oab2csv(data, delimiter)
 # delimiter is a str, normally for a single character
 # users and lists will be list instances
-users, lists = oab.oab2csv(data, delimiter)
 
-# basename is a str. For example, "address_book"
 oab.oab2excel(data, basename)
+# basename is a str. For example, "address_book"
 
-# compact is a bool
-# indent is an int
 json_data = oab.oab2json(data, compact=False, indent=2)
+# the optional compact is a bool
+# the optional indent is an int. It's used when compact=False
 
-# width is an int
-# users and lists will be prettytable instances
 users, lists = oab2table(data, width=173)
+# the optional width is an int
+# users and lists will be prettytable instances
 ```
 
 ### OPTIONS
@@ -101,7 +101,8 @@ Options | Use
 --|Options processing terminator
 
 ## ENVIRONMENT
-The COLUMNS environment variable will be used in tabular format if present.
+The COLUMNS environment variable will be used in tabular format if present
+and output is not redirected to a file.
 
 ## EXIT STATUS
 The **oab** utility exits 0 on success, and >0 if an error occurs.
@@ -130,7 +131,7 @@ The **oab** utility is not a standard UNIX command.
 This implementation tries to follow the [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide for [Python](https://www.python.org/) code.
 
 ## PORTABILITY
-To be tested under Windows.
+Tested OK under Windows.
 
 ## HISTORY
 This program was made on a rainy sunday in order to investigate the contents of my Outlook .oab files.
@@ -148,7 +149,9 @@ This program is inspired by antimatter15's [boa](https://github.com/antimatter15
 * [Wolph@StackOverflow](https://stackoverflow.com/users/54017/wolph)
 
 ## CAVEAT
-Only uncompressed version 4 full details files are supported at this time.
+Only uncompressed version 4 full details files are fully supported at this time.
+
+Some of the address books properties are undocumented and will appear as numbers.
 
 ## BUGS
 Excel reports an error while opening generated XLSX files,
