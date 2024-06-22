@@ -1,4 +1,4 @@
-# libGH TODOLIST
+# OAB TODOLIST
 Feel free to [submit your own ideas!](https://github.com/HubTou/oab/discussions).
 
 ## Planned evolutions
