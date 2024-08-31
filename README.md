@@ -109,15 +109,14 @@ The **oab** utility exits 0 on success, and >0 if an error occurs.
 
 ## EXAMPLES
 To generate pretty tables with relevant information about users and mailing lists in 2 files, use the following command:
-```Shell
-$ oab --table --width 170 --output addressbook udetails.oab
-```
+
+<pre><samp>$ <kbd>oab --table --width 170 --output addressbook udetails.oab</kbd></samp></pre>
 
 ## SEE ALSO
 ### Specifications
 * [Offline address books in Exchange Online](https://learn.microsoft.com/en-us/exchange/address-books/offline-address-books/offline-address-books)
 * [Offline Address Book (OAB) File Format and Schema](https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxoab/b4750386-66ec-4e69-abb6-208dd131c7de)
-* [Offline Address Book (OAB) Public Folder Retrieval Protocol](https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxpfoab/258a07a7-34a7-4373-87c1-cddf51447d00)
+* [Offline Address Book (OAB) Public Folder Retrieval Protocol](https://learn.microsoft.com/en-us/openspecs/exchange_server_protocols/ms-oxpfoab/258a07a7-34a7-4373-87c1-cddf51447d00) - this last one is not used here as the tool works offline
 
 ### Other implementations
 * SysTools [OAB Viewer](https://www.systoolsgroup.com/oab/viewer/)
