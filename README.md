@@ -141,14 +141,14 @@ It was then used to help cleaning my company's global address list.
 It is available under the [3-clause BSD license](https://opensource.org/licenses/BSD-3-Clause).
 
 ## AUTHORS
-[Hubert Tournier](https://github.com/HubTou)
+[Hubert Tournier](https://github.com/HubTou) and [Timothy Holmes](https://github.com/timothy-holmes).
 
 This program is inspired by antimatter15's [boa](https://github.com/antimatter15/boa) and includes snippets of code from:
 * [Mark@StackOverflow](https://stackoverflow.com/users/2606953/mark)
 * [Wolph@StackOverflow](https://stackoverflow.com/users/54017/wolph)
 
 ## CAVEAT
-Only uncompressed version 4 full details files are fully supported at this time.
+Only version 4 full details files are fully supported at this time, whether compressed or not.
 
 Some of the address books properties are undocumented and will appear as numbers.
 
@@ -164,4 +164,3 @@ There are known attacks in the wild targetting these files:
 * [Attacking MS Exchange Web Interfaces](https://swarm.ptsecurity.com/attacking-ms-exchange-web-interfaces/)
 * [Critical Microsoft Exchange Flaw: What is CVE-2021-26855?](https://www.upguard.com/blog/cve-2021-26855)
 * grnbeltwarrior [OAB_Cleaver](https://github.com/grnbeltwarrior/OAB_Cleaver)
-
