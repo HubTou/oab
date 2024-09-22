@@ -21,7 +21,7 @@ from .json_output import oab2json
 from .table_output import oab2table
 
 # Version string used by the what(1) and ident(1) commands:
-ID = "@(#) $Id: oab - Offline Address Books decoder v1.0.1 (June 22, 2024) by Hubert Tournier $"
+ID = "@(#) $Id: oab - Offline Address Books decoder v1.1.0 (September 22, 2024) by Hubert Tournier $"
 
 # Default parameters. Can be overcome by environment variables, then command line options
 parameters = {

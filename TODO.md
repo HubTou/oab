@@ -14,7 +14,6 @@ Feel free to [submit your own ideas!](https://github.com/HubTou/oab/discussions)
 ## Unprobable evolutions
 * Support of:
   * Change files
-  * Compressed files
   * Browse files
   * ANR index files
   * V2 or V3 details files

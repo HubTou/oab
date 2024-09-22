@@ -1,6 +1,13 @@
+#!/usr/bin/env python3
+""" oab - Outlook Offline Address Books decoder
+License: 3-clause BSD (see https://opensource.org/licenses/BSD-3-Clause)
+Author: Timothy Holmes
+"""
+
 import struct
 
 class LZXDDecompressor:
+    """ Compressed version 4 full details file decompressor """
     def __init__(self, window_size):
         self.window_size = window_size
         self.window = bytearray(self.window_size)
@@ -9,9 +16,11 @@ class LZXDDecompressor:
         self.first_chunk_read = False
 
     def _rotate_left(self, value, count, bits=16):
+        """ Private method to rotate bits to the left """
         return ((value << count) | (value >> (bits - count))) & ((1 << bits) - 1)
 
     def _read_bit(self, bitstream):
+        """ Private method to read a bit """
         if bitstream["remaining"] == 0:
             bitstream["remaining"] = 16
             if len(bitstream["buffer"]) < 2:
@@ -24,6 +33,7 @@ class LZXDDecompressor:
         return bitstream["n"] & 1
 
     def _read_bits(self, bitstream, bits):
+        """ Private method to read bits """
         result = 0
         while bits > 0:
             if bitstream["remaining"] == 0:
@@ -42,6 +52,7 @@ class LZXDDecompressor:
         return result
 
     def decompress(self, compressed_data, expected_size):
+        """ Public method to decompress a bitstream """
         # Initialize bitstream from the compressed data
         bitstream = {"buffer": compressed_data, "n": 0, "remaining": 0}
 
@@ -51,7 +62,7 @@ class LZXDDecompressor:
         while len(decompressed_data) < expected_size:
             if not self.first_chunk_read:
                 # Skip the first chunk header
-                e8_translation_enabled = self._read_bit(bitstream)
+                _ = self._read_bit(bitstream) # e8_translation_enabled
                 self.first_chunk_read = True
 
             # Decompress a block of data, handling matches, literals, and copy operations
@@ -65,4 +76,3 @@ class LZXDDecompressor:
                 self.window_pos = (self.window_pos + 1) % self.window_size
 
         return decompressed_data[:expected_size]
-

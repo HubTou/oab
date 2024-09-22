@@ -1,7 +1,7 @@
 NAME=oab
 # Add your other source files on the following line:
 SOURCES=src/${NAME}/__init__.py src/${NAME}/csv_output.py src/${NAME}/excel_output.py \
-        src/${NAME}/library.py src/${NAME}/main.py src/${NAME}/json_output.py \
+        src/${NAME}/library.py src/${NAME}/lzxd.py src/${NAME}/main.py src/${NAME}/json_output.py \
         src/${NAME}/properties.py src/${NAME}/table_output.py
 
 # Default action is to show this help message:
