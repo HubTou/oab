@@ -14,6 +14,7 @@ import struct
 
 import rich.progress
 
+from .lzxd import LZXDDecompressor
 from .properties import property_tags
 
 ####################################################################################################
@@ -36,6 +37,7 @@ def _get_file_type(file_name):
         case _:
             file_type = "unknown file"
 
+    print(f"File type: {file_type}")
     return file_type
 
 ####################################################################################################
@@ -117,6 +119,8 @@ def _read_OAB_HDR(file_type, file):
                     data["version"] = "uncompressed version 2 or 3 details file"
                 case 0x20:
                     data["version"] = "uncompressed version 4 full details file"
+                case 0x22:
+                    data["version"] = "compressed version 4 full details file"
                 case _:
                     data["version"] = "unknown file"
 
@@ -316,6 +320,43 @@ def load_oab_file(path_name, progress_bar=False):
                 data["address_book"].append(
                     _read_OAB_V4_REC(
                         file,
+                        data["OAB_META_DATA"]["rgOabAtts"]["cAtts"],
+                        data["OAB_META_DATA"]["rgOabAtts"]["rgProps"]
+                    )
+                )
+        elif data["OAB_HDR"]["version"] == "compressed version 4 OAB file":
+            # Reading compressed data from the file
+            compressed_data = file.read()
+            target_size = data["OAB_HDR"]["ulTargetSize"]
+
+            # Decompress the file using the LZXDDecompressor
+            decompressor = LZXDDecompressor(window_size=64 * 1024)
+            decompressed_data = decompressor.decompress(compressed_data, target_size)
+
+            # Use decompressed data as the input file (BytesIO stream)
+            decompressed_file = io.BytesIO(decompressed_data)
+
+            # Read metadata and records from the decompressed file
+            data["OAB_META_DATA"] = _read_OAB_META_DATA(decompressed_file)
+            data["header_record"] = _read_OAB_V4_REC(
+                decompressed_file,
+                data["OAB_META_DATA"]["rgHdrAtts"]["cAtts"],
+                data["OAB_META_DATA"]["rgHdrAtts"]["rgProps"]
+            )
+
+            if progress_bar:
+                to_be_processed = rich.progress.track(
+                    range(data["OAB_HDR"]["ulTotRecs"]),
+                    description="Processing"
+                )
+            else:
+                to_be_processed = range(data["OAB_HDR"]["ulTotRecs"])
+
+            data["address_book"] = []
+            for _ in to_be_processed:
+                data["address_book"].append(
+                    _read_OAB_V4_REC(
+                        decompressed_file,
                         data["OAB_META_DATA"]["rgOabAtts"]["cAtts"],
                         data["OAB_META_DATA"]["rgOabAtts"]["rgProps"]
                     )
